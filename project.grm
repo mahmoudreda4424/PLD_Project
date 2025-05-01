@@ -1,0 +1,137 @@
+"Name"     = 'Arithmetic Grammar'
+"Author"   = 'Mahmod Reda'
+"Version"  = '1.1'
+"About"    = 'A grammar for basic arithmetic expressions with comparisons, method declarations, and loops.'
+
+"Start Symbol" = <Program>
+
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+{String Chars} = {Printable} + {HT} - ["]
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+Identifier    = [_]|{Letter}{AlphaNumeric}*
+StringLiteral = '"' {String Chars}* '"'
+Number        = ('+'|'-')?{Digit}+ ('.'{Digit}+)? ( ('e'| ('-'|'+'){Digit}+) '^' ('+'|'-'){Digit}+('.'{Digit}+)? )?
+
+! -------------------------------------------------
+! Rules
+! -------------------------------------------------
+
+<Program> ::= <statements>
+
+<statements> ::= <statement> 
+              | <statements> <statement>
+
+<statement> ::= <assignment>         ! Assignment statement
+             | <declaration>        ! Declaration statement
+             | <condition>          ! Condition statement (if statement)
+             | <loop>               ! Loop statement (repeat-until, range)
+             | <methodDeclaration>  ! Method declaration
+             | <methodCall>         ! Method call
+
+! -------------------------------------------------
+! Declaration statement (variable declaration)
+! -------------------------------------------------
+<declaration> ::= <type> Identifier '=' <expression>
+                              
+<type> ::= 'integer'                ! Integer type
+        | 'precise'                 ! Float type
+        | 'phrase'                  ! String type
+        | 'truth'                   ! Boolean type
+        | 'collection' '<' <type> '>' ! Array or list type
+
+! Example of Declaration:
+! integer x = 10   ! Declaring an integer variable 'x' and assigning it the value 10
+
+! -------------------------------------------------
+! Assignment statement
+! -------------------------------------------------
+<assignment> ::= Identifier '=' <expression>
+
+! Example of Assignment:
+! x = 20   ! Assigning the value 20 to the variable 'x'
+
+! -------------------------------------------------
+! Condition statement (if statement)
+! -------------------------------------------------
+<condition> ::= 'if' '(' <expression> ')' <block> 
+             | 'if' '(' <expression> ')' <block> 'other' <block>
+
+<block> ::= '{' <statements> '}'
+
+! Example of Condition:
+! if (x > 10) {
+!     print "x is greater than 10"
+! } other {
+!     print "x is less than or equal to 10"
+! }
+
+! -------------------------------------------------
+! Loop statement (repeat-until loop)
+! -------------------------------------------------
+<loop> ::= 'repeat' <block> 'until' '(' <expression> ')'
+        | 'range' '(' <expression> ',' <expression> ')' <block>
+
+! Example of Loop:
+! repeat {
+!     x = x + 1
+! } until (x > 10)   ! Repeats the statement until 'x' becomes greater than 10
+
+! Example of Range Loop:
+! range(1, 5) {
+!     print i   ! Loops through numbers from 1 to 4 and prints each value
+! }
+
+! -------------------------------------------------
+! Method declaration
+! -------------------------------------------------
+<methodDeclaration> ::= 'def' Identifier '(' <params> ')' ':' <block>
+
+<params> ::= <param> 
+          | <params> ',' <param>
+
+<param> ::= Identifier ':' <type>
+
+<block> ::= '{' <statements> '}'
+
+! Example of Method Declaration:
+! def sum(a: integer, b: integer) {
+!     result = a + b
+!     return result
+! }
+
+! -------------------------------------------------
+! Method call
+! -------------------------------------------------
+<methodCall> ::= Identifier '(' <arguments> ')'
+
+<arguments> ::= <expression>
+             | <arguments> ',' <expression>
+
+! Example of Method Call:
+! sum(5, 10)  ! Calling the method 'sum' with arguments 5 and 10
+
+! -------------------------------------------------
+! Expressions and operations
+! -------------------------------------------------
+<expression> ::= <additive>
+
+<additive> ::= <additive> '+' <multiplicative>
+            | <additive> '-' <multiplicative>
+            | <multiplicative>
+
+<multiplicative> ::= <multiplicative> '*' <factor>
+                  | <multiplicative> '/' <factor>
+                  | <factor>
+
+<factor> ::= Identifier
+          | Number
+          | StringLiteral      
+          | '(' <expression> ')'
+          | '-' <factor>
