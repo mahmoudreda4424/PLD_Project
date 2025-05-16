@@ -61,7 +61,7 @@ Through this project, I learned:
 
 **Mahmoud Reda**  
 Student at [faculty of computer and information science]  
-Contact: [[your email or GitHub link](https://github.com/mahmoudreda4424)]
+Contact: [GitHub Profile](https://github.com/mahmoudreda4424)]
 
 ---
 
