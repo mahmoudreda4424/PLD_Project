@@ -60,8 +60,8 @@ Through this project, I learned:
 ## 👨‍💻 Author
 
 **Mahmoud Reda**  
-Student at [faculty of computer and information science]  
-Contact: [GitHub Profile](https://github.com/mahmoudreda4424)
+Student at [Faculty of Computer & Information Sciences - Mansoura University]  
+Contact: [LinkedIn Profile](https://www.linkedin.com/in/mahmoudredaprofile)
 
 ---
 
