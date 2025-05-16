@@ -44,9 +44,6 @@ This project demonstrates the fundamental concepts of language design and compil
 3. Build the project.
 4. Run the application to test the compiler interface.
 
-## 📷 Screenshots
-
-*(Include a screenshot of the GUI or sample run here if possible)*
 
 ## 📚 Learnings
 
